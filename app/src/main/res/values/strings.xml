@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">A3-Education-App</string>
+    <string name="home">Home</string>
+    <string name="solar_system">Solar System</string>
+    <string name="exoplanets">Exoplanets</string>
+    <string name="lessons">Lessons</string>
+    <string name="quiz">Quiz</string>
+    <string name="back_button">Back</string>
+    <string name="loading">Loading</string>
+    <string name="loading_failed">Failed to load. Check connection and try again.</string>
+    <string name="retry">Retry</string>
+    <string name="next">Next</string>
+    <string name="play_again">Play again</string>
+    <string name="score">Score: %d</string>
+    <string name="question_count">Question %1$d of %2$d</string>
+    <string name="moons_count">Moons: %d</string>
+    <string name="gravity">Gravity: %1$.1f m/s²</string>
+    <string name="mean_radius">Mean radius: %1$.1f km</string>
+    <string name="host_star">Host star: %1$s</string>
+    <string name="discovery_year">Discovered: %1$d</string>
+    <string name="planet_mass">Mass (Earth masses): %1$.2f</string>
+    <string name="planet_radius">Radius (Earth radii): %1$.2f</string>
+    <string name="distance">Distance (pc): %1$.2f</string>
 </resources>
