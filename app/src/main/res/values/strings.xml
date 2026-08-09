@@ -42,4 +42,17 @@
     <string name="add_favorite">Add favorite</string>
     <string name="remove_favorite">Remove favorite</string>
     <string name="no_favorites">No favorite exoplanets yet.</string>
+    <string name="toggle_theme">Toggle light and dark mode</string>
+    <string name="home_welcome_title">Space Education</string>
+    <string name="home_welcome_subtitle">Explore planets, learn cool facts, and play quizzes!</string>
+    <string name="home_solar_subtitle">Meet the planets in our solar system</string>
+    <string name="home_exoplanets_subtitle">Search worlds beyond our Sun</string>
+    <string name="home_favorites_subtitle">Your saved exoplanets</string>
+    <string name="home_lessons_subtitle">Read facts, then take a quiz</string>
+    <string name="home_quiz_subtitle">Planet quizzes and Exoplanet Blitz</string>
+    <string name="solar_list_header">Tap a planet to learn more</string>
+    <string name="lessons_header">Choose a lesson</string>
+    <string name="favorites_header">Your favorite exoplanets</string>
+    <string name="no_favorites_hint">Open Exoplanets, pick one, and tap Add favorite.</string>
+    <string name="quiz_list_header">Pick a quiz — beat your best score!</string>
 </resources>

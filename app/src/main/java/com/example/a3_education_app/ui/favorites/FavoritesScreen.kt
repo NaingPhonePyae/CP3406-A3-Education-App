@@ -33,7 +33,17 @@ fun FavoritesScreen(
 
     if (favorites.isEmpty()) {
         Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(stringResource(R.string.no_favorites))
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = stringResource(R.string.no_favorites),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = stringResource(R.string.no_favorites_hint),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(top = 8.dp, start = 24.dp, end = 24.dp)
+                )
+            }
         }
         return
     }
@@ -43,11 +53,18 @@ fun FavoritesScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
+        item {
+            Text(
+                text = stringResource(R.string.favorites_header),
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(bottom = 12.dp)
+            )
+        }
         items(favorites, key = { it.plName }) { favorite ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 4.dp)
+                    .padding(vertical = 6.dp)
                     .clickable {
                         val encoded = URLEncoder.encode(
                             favorite.plName,
@@ -56,10 +73,13 @@ fun FavoritesScreen(
                         onFavoriteClicked(encoded)
                     }
             ) {
-                Column(Modifier.padding(16.dp)) {
-                    Text(favorite.plName, style = MaterialTheme.typography.titleMedium)
+                Column(modifier.padding(16.dp)) {
+                    Text(favorite.plName, style = MaterialTheme.typography.titleLarge)
                     favorite.hostname?.let {
-                        Text(stringResource(R.string.host_star, it))
+                        Text(
+                            text = stringResource(R.string.host_star, it),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     }
                     favorite.discYear?.let {
                         Text(stringResource(R.string.discovery_year, it))

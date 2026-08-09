@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.map
 
 class FakeUserPreferencesRepository : UserPreferencesRepository {
     private val scores = MutableStateFlow<Map<String, Int>>(emptyMap())
+    private val darkTheme = MutableStateFlow(false)
 
     override fun highScoreFlow(quizId: String): Flow<Int> =
         scores.map { it[quizId] ?: 0 }
@@ -16,5 +17,11 @@ class FakeUserPreferencesRepository : UserPreferencesRepository {
         if (score > current) {
             scores.value = scores.value + (quizId to score)
         }
+    }
+
+    override fun darkThemeFlow(): Flow<Boolean> = darkTheme
+
+    override suspend fun setDarkTheme(enabled: Boolean) {
+        darkTheme.value = enabled
     }
 }

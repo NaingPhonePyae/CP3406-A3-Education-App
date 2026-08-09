@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,22 +40,36 @@ fun SolarBodyDetailScreen(
             contentDescription = body.name,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp),
+                .height(220.dp),
             contentScale = ContentScale.Crop
         )
-        Text(body.name, style = MaterialTheme.typography.headlineMedium)
-        Text(body.summary, modifier = Modifier.padding(top = 8.dp))
-        Text(stringResource(R.string.moons_count, body.moons))
+        Text(
+            text = body.name,
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.padding(top = 16.dp)
+        )
+        Text(body.summary, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(top = 8.dp))
+        Text(stringResource(R.string.moons_count, body.moons), modifier = Modifier.padding(top = 8.dp))
         Text(stringResource(R.string.gravity, body.gravity))
         Text(stringResource(R.string.mean_radius, body.meanRadiusKm))
 
         Text(
             text = stringResource(R.string.interesting_facts),
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.padding(top = 20.dp, bottom = 8.dp)
         )
         body.facts.forEach { fact ->
-            Text("• $fact", modifier = Modifier.padding(bottom = 6.dp))
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            ) {
+                Text(
+                    text = "• $fact",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(14.dp)
+                )
+            }
         }
 
         Text(
@@ -67,7 +82,7 @@ fun SolarBodyDetailScreen(
             onClick = { onTakeQuizClicked(body.id) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp)
+                .padding(top = 20.dp, bottom = 8.dp)
         ) {
             Text(stringResource(R.string.take_quiz))
         }

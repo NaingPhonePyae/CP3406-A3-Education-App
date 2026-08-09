@@ -3,6 +3,7 @@ package com.example.a3_education_app.data
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -12,6 +13,9 @@ import kotlinx.coroutines.flow.map
 interface UserPreferencesRepository {
     fun highScoreFlow(quizId: String): Flow<Int>
     suspend fun updateHighScoreIfBetter(quizId: String, score: Int)
+
+    fun darkThemeFlow(): Flow<Boolean>
+    suspend fun setDarkTheme(enabled: Boolean)
 }
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
@@ -34,6 +38,18 @@ class UserPreferencesRepositoryImpl(
             if (score > current) {
                 prefs[key] = score
             }
+        }
+    }
+
+    override fun darkThemeFlow(): Flow<Boolean> {
+        val key = booleanPreferencesKey("dark_theme")
+        return dataStore.data.map { prefs -> prefs[key] ?: false }
+    }
+
+    override suspend fun setDarkTheme(enabled: Boolean) {
+        val key = booleanPreferencesKey("dark_theme")
+        dataStore.edit { prefs ->
+            prefs[key] = enabled
         }
     }
 

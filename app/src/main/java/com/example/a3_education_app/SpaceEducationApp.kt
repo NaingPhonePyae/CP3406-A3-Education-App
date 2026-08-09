@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,12 +24,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.a3_education_app.ui.explore.ExoplanetDetailScreen
-import com.example.a3_education_app.ui.quiz.ExoplanetQuizScreen
 import com.example.a3_education_app.ui.explore.ExploreScreen
 import com.example.a3_education_app.ui.favorites.FavoritesScreen
 import com.example.a3_education_app.ui.home.HomeScreen
 import com.example.a3_education_app.ui.lessons.LessonDetailScreen
 import com.example.a3_education_app.ui.lessons.LessonsScreen
+import com.example.a3_education_app.ui.quiz.ExoplanetQuizScreen
 import com.example.a3_education_app.ui.quiz.PlanetQuizListScreen
 import com.example.a3_education_app.ui.quiz.QuizScreen
 import com.example.a3_education_app.ui.solar.SolarBodyDetailScreen
@@ -43,12 +45,15 @@ enum class SpaceScreen(@param:StringRes val title: Int) {
     LessonDetail(R.string.lessons),
     Quiz(R.string.quiz),
     ExoplanetQuiz(R.string.exoplanet_blitz),
-    Favorites(R.string.favorites),
+    Favorites(R.string.favorites)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SpaceEducationApp() {
+fun SpaceEducationApp(
+    darkTheme: Boolean,
+    onToggleDarkTheme: () -> Unit
+) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val route = backStackEntry?.destination?.route ?: SpaceScreen.Home.name
@@ -74,6 +79,18 @@ fun SpaceEducationApp() {
                                 contentDescription = stringResource(R.string.back_button)
                             )
                         }
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onToggleDarkTheme) {
+                        Icon(
+                            imageVector = if (darkTheme) {
+                                Icons.Filled.LightMode
+                            } else {
+                                Icons.Filled.DarkMode
+                            },
+                            contentDescription = stringResource(R.string.toggle_theme)
+                        )
                     }
                 }
             )
@@ -106,9 +123,8 @@ fun SpaceEducationApp() {
                 route = "${SpaceScreen.SolarDetail.name}/{bodyId}",
                 arguments = listOf(navArgument("bodyId") { type = NavType.StringType })
             ) { entry ->
-                val bodyId = entry.arguments?.getString("bodyId")!!
                 SolarBodyDetailScreen(
-                    bodyId = bodyId,
+                    bodyId = entry.arguments?.getString("bodyId")!!,
                     onTakeQuizClicked = { planetId ->
                         navController.navigate("${SpaceScreen.Quiz.name}/$planetId")
                     }
@@ -117,9 +133,7 @@ fun SpaceEducationApp() {
             composable(SpaceScreen.Exoplanets.name) {
                 ExploreScreen(
                     onExoplanetClicked = { encodedName ->
-                        navController.navigate(
-                            "${SpaceScreen.ExoplanetDetail.name}/$encodedName"
-                        )
+                        navController.navigate("${SpaceScreen.ExoplanetDetail.name}/$encodedName")
                     }
                 )
             }
@@ -147,9 +161,8 @@ fun SpaceEducationApp() {
                 route = "${SpaceScreen.LessonDetail.name}/{lessonId}",
                 arguments = listOf(navArgument("lessonId") { type = NavType.StringType })
             ) { entry ->
-                val lessonId = entry.arguments?.getString("lessonId")!!
                 LessonDetailScreen(
-                    lessonId = lessonId,
+                    lessonId = entry.arguments?.getString("lessonId")!!,
                     onTakeQuizClicked = { planetId ->
                         navController.navigate("${SpaceScreen.Quiz.name}/$planetId")
                     }

@@ -16,7 +16,7 @@ class HomeScreenTest {
     @Test
     fun homeScreen_displaysAllNavigationButtons() {
         composeTestRule.setContent {
-            A3EducationAppTheme {
+            A3EducationAppTheme(darkTheme = false) {
                 HomeScreen(
                     onSolarSystemClicked = {},
                     onExoplanetsClicked = {},
