@@ -21,4 +21,15 @@
     <string name="planet_mass">Mass (Earth masses): %1$.2f</string>
     <string name="planet_radius">Radius (Earth radii): %1$.2f</string>
     <string name="distance">Distance (pc): %1$.2f</string>
+    <string name="search_exoplanets">Search name or host star</string>
+    <string name="min_year">Min year</string>
+    <string name="max_year">Max year</string>
+    <string name="min_radius">Min radius</string>
+    <string name="max_radius">Max radius</string>
+    <string name="results">Results</string>
+    <string name="apply_filters">Apply filters</string>
+    <string name="clear_filters">Clear</string>
+    <string name="no_exoplanet_results">No exoplanets match your search/filters.</string>
+    <string name="discovered">Discovered: %d</string>
+    <string name="radius_earth">Radius: %1$s Earth radii</string>
 </resources>

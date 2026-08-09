@@ -6,8 +6,7 @@ import retrofit2.http.Query
 interface ExoplanetApiService {
     @GET("TAP/sync")
     suspend fun getExoplanets(
-        @Query("query") query: String =
-            "select top 20 pl_name,hostname,disc_year,pl_bmasse,pl_rade,sy_dist from pscomppars order by disc_year desc",
+        @Query("query", encoded = true) query: String,
         @Query("format") format: String = "json"
     ): List<Exoplanet>
 }

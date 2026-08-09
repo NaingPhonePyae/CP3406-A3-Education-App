@@ -8,6 +8,9 @@ class FakeExoplanetRepository : ExoplanetRepository {
 
     var shouldReturnError: Boolean = false
 
+    var lastQuery: String? = null
+        private set
+
     private val sampleData = listOf(
         Exoplanet(
             pl_name = "Kepler-22 b",
@@ -27,7 +30,8 @@ class FakeExoplanetRepository : ExoplanetRepository {
         )
     )
 
-    override suspend fun getExoplanets(): List<Exoplanet> {
+    override suspend fun getExoplanets(query: String): List<Exoplanet> {
+        lastQuery = query
         if (shouldReturnError) {
             throw IOException("Fake network error")
         }

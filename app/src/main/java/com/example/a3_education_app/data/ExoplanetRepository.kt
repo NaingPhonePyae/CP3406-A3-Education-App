@@ -4,12 +4,12 @@ import com.example.a3_education_app.network.Exoplanet
 import com.example.a3_education_app.network.ExoplanetApiService
 
 interface ExoplanetRepository {
-    suspend fun getExoplanets(): List<Exoplanet>
+    suspend fun getExoplanets(query: String): List<Exoplanet>
 }
 
 class NetworkExoplanetRepository(
     private val exoplanetApiService: ExoplanetApiService
 ) : ExoplanetRepository {
-    override suspend fun getExoplanets(): List<Exoplanet> =
-        exoplanetApiService.getExoplanets()
+    override suspend fun getExoplanets(query: String): List<Exoplanet> =
+        exoplanetApiService.getExoplanets(query = query)
 }
