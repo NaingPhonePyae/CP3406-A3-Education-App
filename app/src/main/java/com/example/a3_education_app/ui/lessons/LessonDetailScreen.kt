@@ -103,13 +103,15 @@ fun LessonDetailScreen(
             }
         }
 
-        Button(
-            onClick = { onTakeQuizClicked(lesson.quizPlanetId) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp)
-        ) {
-            Text(stringResource(R.string.take_quiz))
+        lesson.quizPlanetId?.let { planetId ->
+            Button(
+                onClick = { onTakeQuizClicked(planetId) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp)
+            ) {
+                Text(stringResource(R.string.take_quiz))
+            }
         }
     }
 }

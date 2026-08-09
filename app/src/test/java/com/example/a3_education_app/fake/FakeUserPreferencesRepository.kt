@@ -10,6 +10,7 @@ class FakeUserPreferencesRepository : UserPreferencesRepository {
     private val darkTheme = MutableStateFlow(false)
     private val lessonsCompleted = MutableStateFlow<Map<String, Boolean>>(emptyMap())
     private val quizzesCompleted = MutableStateFlow<Map<String, Boolean>>(emptyMap())
+    private val blitzQuestionCount = MutableStateFlow(5)
 
     override fun highScoreFlow(quizId: String): Flow<Int> =
         scores.map { it[quizId] ?: 0 }
@@ -39,5 +40,11 @@ class FakeUserPreferencesRepository : UserPreferencesRepository {
 
     override suspend fun setQuizCompleted(quizId: String, completed: Boolean) {
         quizzesCompleted.value = quizzesCompleted.value + (quizId to completed)
+    }
+
+    override fun blitzQuestionCountFlow(): Flow<Int> = blitzQuestionCount
+
+    override suspend fun setBlitzQuestionCount(count: Int) {
+        blitzQuestionCount.value = count
     }
 }

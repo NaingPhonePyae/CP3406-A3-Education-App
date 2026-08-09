@@ -22,7 +22,9 @@ class HomeScreenTest {
                     onExoplanetsClicked = {},
                     onFavoritesClicked = {},
                     onLessonsClicked = {},
-                    onQuizClicked = {}
+                    onQuizClicked = {},
+                    onStatisticsClicked = {},
+                    onSettingsClicked = {},
                 )
             }
         }
