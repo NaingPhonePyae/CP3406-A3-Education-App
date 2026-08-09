@@ -16,7 +16,7 @@ import com.example.a3_education_app.data.LessonDataSource
 
 @Composable
 fun LessonsScreen(
-    onLessonClicked: (Int) -> Unit,
+    onLessonClicked: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(

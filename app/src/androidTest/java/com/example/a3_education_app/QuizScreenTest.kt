@@ -17,11 +17,11 @@ class QuizScreenTest {
 
     @Test
     fun quizScreen_displaysFirstQuestionAndOptions() {
-        val firstQuestion = QuizQuestionDataSource.questions.first()
+        val firstQuestion = QuizQuestionDataSource.questionsFor("mars").first()
 
         composeTestRule.setContent {
             A3EducationAppTheme {
-                QuizScreen()
+                QuizScreen(planetId = "mars")
             }
         }
 
@@ -32,12 +32,12 @@ class QuizScreenTest {
 
     @Test
     fun quizScreen_selectAnswer_showsNextButton() {
-        val firstQuestion = QuizQuestionDataSource.questions.first()
+        val firstQuestion = QuizQuestionDataSource.questionsFor("mars").first()
         val correctOption = firstQuestion.options[firstQuestion.correctAnswerIndex]
 
         composeTestRule.setContent {
             A3EducationAppTheme {
-                QuizScreen()
+                QuizScreen(planetId = "mars")
             }
         }
 

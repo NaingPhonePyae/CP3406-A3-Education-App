@@ -140,9 +140,15 @@ fun SpaceEducationApp() {
             }
             composable(
                 route = "${SpaceScreen.LessonDetail.name}/{lessonId}",
-                arguments = listOf(navArgument("lessonId") { type = NavType.IntType })
+                arguments = listOf(navArgument("lessonId") { type = NavType.StringType })
             ) { entry ->
-                LessonDetailScreen(lessonId = entry.arguments?.getInt("lessonId")!!)
+                val lessonId = entry.arguments?.getString("lessonId")!!
+                LessonDetailScreen(
+                    lessonId = lessonId,
+                    onTakeQuizClicked = { planetId ->
+                        navController.navigate("${SpaceScreen.Quiz.name}/$planetId")
+                    }
+                )
             }
             composable(SpaceScreen.Quiz.name) {
                 PlanetQuizListScreen(

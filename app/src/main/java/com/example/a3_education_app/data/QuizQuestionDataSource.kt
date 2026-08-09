@@ -16,6 +16,21 @@ object QuizQuestionDataSource {
                 question = "Which planet is closest to the Sun?",
                 options = listOf("Venus", "Earth", "Mercury", "Mars"),
                 correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "About how long does one day on Mercury last?",
+                options = listOf("24 hours", "59 Earth days", "12 Earth days", "365 Earth days"),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "How many moons does Mercury have?",
+                options = listOf("0", "1", "2", "4"),
+                correctAnswerIndex = 0
+            ),
+            QuizQuestion(
+                question = "How many rings does Mercury have?",
+                options = listOf("0", "1", "2", "4"),
+                correctAnswerIndex = 0
             )
         ),
 
@@ -23,6 +38,11 @@ object QuizQuestionDataSource {
             QuizQuestion(
                 question = "Which is the hottest planet in the solar system?",
                 options = listOf("Mercury", "Venus", "Mars", "Jupiter"),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "Which planet is second from the Sun?",
+                options = listOf("Mercury", "Venus", "Earth", "Mars"),
                 correctAnswerIndex = 1
             ),
             QuizQuestion(
@@ -34,6 +54,16 @@ object QuizQuestionDataSource {
                     "It rotates around the Sun twice"
                 ),
                 correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "Which planet is similar to Earth in size and structure?",
+                options = listOf("Mars", "Venus", "Jupiter", "Neptune"),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "How many moons does Venus have?",
+                options = listOf("0", "1", "2", "4"),
+                correctAnswerIndex = 0
             )
         ),
 
@@ -46,6 +76,21 @@ object QuizQuestionDataSource {
             QuizQuestion(
                 question = "Approximately what percentage of Earth's surface is covered by water?",
                 options = listOf("30%", "50%", "71%", "90%"),
+                correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "Which planet is known to support life?",
+                options = listOf("Mars", "Venus", "Earth", "Jupiter"),
+                correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "Which planet is third from the Sun?",
+                options = listOf("Venus", "Earth", "Mars", "Mercury"),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "What is Earth's natural satellite called?",
+                options = listOf("Phobos", "Titan", "The Moon", "Europa"),
                 correctAnswerIndex = 2
             )
         ),
@@ -63,6 +108,36 @@ object QuizQuestionDataSource {
                     "A volcano",
                     "A ring",
                     "An ocean"
+                ),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "Approximately how large is Mars compared with Earth?",
+                options = listOf(
+                    "About twice the diameter",
+                    "About the same diameter",
+                    "About half the diameter",
+                    "About one-tenth the diameter"
+                ),
+                correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "About how long is a day on Mars?",
+                options = listOf(
+                    "12 hours",
+                    "24.6 hours",
+                    "48 hours",
+                    "365 days"
+                ),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "What are the two moons of Mars called?",
+                options = listOf(
+                    "Titan and Europa",
+                    "Phobos and Deimos",
+                    "Io and Ganymede",
+                    "Triton and Charon"
                 ),
                 correctAnswerIndex = 1
             )
@@ -83,6 +158,36 @@ object QuizQuestionDataSource {
                     "A mountain"
                 ),
                 correctAnswerIndex = 0
+            ),
+            QuizQuestion(
+                question = "What type of planet is Jupiter?",
+                options = listOf(
+                    "Rocky planet",
+                    "Gas giant",
+                    "Ice giant",
+                    "Dwarf planet"
+                ),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "What are Jupiter's main atmospheric components?",
+                options = listOf(
+                    "Oxygen and nitrogen",
+                    "Hydrogen and helium",
+                    "Carbon dioxide and oxygen",
+                    "Methane and oxygen"
+                ),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "Does Jupiter have a ring system?",
+                options = listOf(
+                    "No",
+                    "Yes, a faint ring system",
+                    "Only one solid ring",
+                    "Only liquid rings"
+                ),
+                correctAnswerIndex = 1
             )
         ),
 
@@ -106,6 +211,36 @@ object QuizQuestionDataSource {
                     "Liquid water"
                 ),
                 correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "Which planet is the second-largest in the solar system?",
+                options = listOf(
+                    "Jupiter",
+                    "Saturn",
+                    "Uranus",
+                    "Neptune"
+                ),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "What type of planet is Saturn?",
+                options = listOf(
+                    "Rocky planet",
+                    "Gas giant",
+                    "Ice giant",
+                    "Dwarf planet"
+                ),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "Which planet is the least dense in the solar system?",
+                options = listOf(
+                    "Jupiter",
+                    "Saturn",
+                    "Uranus",
+                    "Neptune"
+                ),
+                correctAnswerIndex = 1
             )
         ),
 
@@ -127,6 +262,31 @@ object QuizQuestionDataSource {
                     "Methane in its atmosphere",
                     "Its rings",
                     "Volcanic gases"
+                ),
+                correctAnswerIndex = 1
+            ),
+            QuizQuestion(
+                question = "How many faint rings does Uranus have?",
+                options = listOf("5", "8", "13", "20"),
+                correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "What type of planet is Uranus?",
+                options = listOf(
+                    "Rocky planet",
+                    "Gas giant",
+                    "Ice giant",
+                    "Dwarf planet"
+                ),
+                correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "Which planet is seventh from the Sun?",
+                options = listOf(
+                    "Saturn",
+                    "Uranus",
+                    "Neptune",
+                    "Jupiter"
                 ),
                 correctAnswerIndex = 1
             )
@@ -152,6 +312,36 @@ object QuizQuestionDataSource {
                     "They are slower than Earth's winds"
                 ),
                 correctAnswerIndex = 0
+            ),
+            QuizQuestion(
+                question = "What type of planet is Neptune?",
+                options = listOf(
+                    "Rocky planet",
+                    "Gas giant",
+                    "Ice giant",
+                    "Dwarf planet"
+                ),
+                correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "Which planet is eighth from the Sun?",
+                options = listOf(
+                    "Saturn",
+                    "Uranus",
+                    "Neptune",
+                    "Jupiter"
+                ),
+                correctAnswerIndex = 2
+            ),
+            QuizQuestion(
+                question = "How much farther from the Sun is Neptune than Earth?",
+                options = listOf(
+                    "About 5 times farther",
+                    "About 10 times farther",
+                    "More than 30 times farther",
+                    "About 100 times farther"
+                ),
+                correctAnswerIndex = 2
             )
         )
     )

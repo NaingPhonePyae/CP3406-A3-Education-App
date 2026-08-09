@@ -1,27 +1,72 @@
 package com.example.a3_education_app.ui.lessons
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.a3_education_app.R
 import com.example.a3_education_app.data.LessonDataSource
 
 @Composable
 fun LessonDetailScreen(
-    lessonId: Int,
+    lessonId: String,
+    onTakeQuizClicked: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val lesson = LessonDataSource.lessons.first { it.id == lessonId }
+    val lesson = LessonDataSource.lessonFor(lessonId)
+
     Column(
         modifier = modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
+        Image(
+            painter = painterResource(lesson.imageRes),
+            contentDescription = lesson.title,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp),
+            contentScale = ContentScale.Crop
+        )
         Text(lesson.title, style = MaterialTheme.typography.headlineSmall)
         Text(lesson.content, modifier = Modifier.padding(top = 12.dp))
+
+        Text(
+            text = stringResource(R.string.interesting_facts),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+        )
+        lesson.facts.forEach { fact ->
+            Text("• $fact", modifier = Modifier.padding(bottom = 6.dp))
+        }
+
+        Text(
+            text = stringResource(R.string.source_nasa, lesson.sourceUrl),
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.padding(top = 12.dp)
+        )
+
+        Button(
+            onClick = { onTakeQuizClicked(lesson.quizPlanetId) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+        ) {
+            Text(stringResource(R.string.take_quiz))
+        }
     }
 }
