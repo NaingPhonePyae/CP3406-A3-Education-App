@@ -17,6 +17,7 @@ import com.example.a3_education_app.data.SolarSystemDataSource
 @Composable
 fun PlanetQuizListScreen(
     onPlanetQuizClicked: (String) -> Unit,
+    onExoplanetBlitzClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -32,6 +33,17 @@ fun PlanetQuizListScreen(
                     .padding(vertical = 4.dp)
             ) {
                 Text(stringResource(R.string.planet_quiz, body.name))
+            }
+        }
+
+        item {
+            Button(
+                onClick = onExoplanetBlitzClicked,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            ) {
+                Text(stringResource(R.string.exoplanet_blitz))
             }
         }
     }

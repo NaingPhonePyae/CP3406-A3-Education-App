@@ -22,6 +22,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.a3_education_app.ui.explore.ExoplanetDetailScreen
+import com.example.a3_education_app.ui.quiz.ExoplanetQuizScreen
 import com.example.a3_education_app.ui.explore.ExploreScreen
 import com.example.a3_education_app.ui.home.HomeScreen
 import com.example.a3_education_app.ui.lessons.LessonDetailScreen
@@ -39,7 +40,8 @@ enum class SpaceScreen(@param:StringRes val title: Int) {
     ExoplanetDetail(R.string.exoplanets),
     Lessons(R.string.lessons),
     LessonDetail(R.string.lessons),
-    Quiz(R.string.quiz)
+    Quiz(R.string.quiz),
+    ExoplanetQuiz(R.string.exoplanet_blitz)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,6 +55,7 @@ fun SpaceEducationApp() {
         route.startsWith(SpaceScreen.SolarDetail.name) -> SpaceScreen.SolarDetail
         route.startsWith(SpaceScreen.ExoplanetDetail.name) -> SpaceScreen.ExoplanetDetail
         route.startsWith(SpaceScreen.LessonDetail.name) -> SpaceScreen.LessonDetail
+        route.startsWith(SpaceScreen.ExoplanetQuiz.name) -> SpaceScreen.ExoplanetQuiz
         route.startsWith(SpaceScreen.Quiz.name) -> SpaceScreen.Quiz
         else -> SpaceScreen.valueOf(route.substringBefore("/"))
     }
@@ -152,8 +155,11 @@ fun SpaceEducationApp() {
             }
             composable(SpaceScreen.Quiz.name) {
                 PlanetQuizListScreen(
-                    onPlanetQuizClicked = { planetId ->
-                        navController.navigate("${SpaceScreen.Quiz.name}/$planetId")
+                    onPlanetQuizClicked = { id ->
+                        navController.navigate("${SpaceScreen.Quiz.name}/$id")
+                    },
+                    onExoplanetBlitzClicked = {
+                        navController.navigate(SpaceScreen.ExoplanetQuiz.name)
                     }
                 )
             }
@@ -162,6 +168,9 @@ fun SpaceEducationApp() {
                 arguments = listOf(navArgument("planetId") { type = NavType.StringType })
             ) { entry ->
                 QuizScreen(planetId = entry.arguments?.getString("planetId")!!)
+            }
+            composable(SpaceScreen.ExoplanetQuiz.name) {
+                ExoplanetQuizScreen()
             }
         }
     }

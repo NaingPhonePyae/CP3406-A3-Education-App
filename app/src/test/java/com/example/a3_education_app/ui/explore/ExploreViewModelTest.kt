@@ -22,7 +22,7 @@ class ExploreViewModelTest {
         val state = viewModel.exploreUiState
         Assert.assertTrue(state is ExploreUiState.Success)
         val success = state as ExploreUiState.Success
-        Assert.assertEquals(2, success.exoplanets.size)
+        Assert.assertEquals(8, success.exoplanets.size)
         Assert.assertEquals("Kepler-22 b", success.exoplanets[0].pl_name)
     }
 
