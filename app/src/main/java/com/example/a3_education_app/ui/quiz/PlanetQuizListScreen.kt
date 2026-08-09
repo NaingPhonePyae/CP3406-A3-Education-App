@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,15 +34,23 @@ fun PlanetQuizListScreen(
             .padding(16.dp)
     ) {
         item {
+            val completedCount by viewModel.completedCount.collectAsState()
+            val total = viewModel.totalQuizzes
+            Text(stringResource(R.string.quiz_list_header), style = MaterialTheme.typography.titleLarge)
             Text(
-                text = stringResource(R.string.quiz_list_header),
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = 12.dp)
+                text = stringResource(R.string.quizzes_progress, completedCount, total),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+            )
+            LinearProgressIndicator(
+                progress = { if (total == 0) 0f else completedCount / total.toFloat() },
+                modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp)
             )
         }
 
         items(SolarSystemDataSource.bodies, key = { it.id }) { body ->
             val best by viewModel.highScoreFlow(body.id).collectAsState()
+            val completed by viewModel.isCompletedFlow(body.id).collectAsState()
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -57,6 +66,15 @@ fun PlanetQuizListScreen(
                         text = stringResource(R.string.high_score, best),
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
+                    )
+                    Text(
+                        text = if (completed) {
+                            stringResource(R.string.quiz_completed)
+                        } else {
+                            stringResource(R.string.quiz_not_completed)
+                        },
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 2.dp)
                     )
                 }
             }

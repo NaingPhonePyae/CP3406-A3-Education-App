@@ -101,6 +101,7 @@ class ExoplanetQuizViewModel(
             _uiState.update { it.copy(isGameOver = true) }
             viewModelScope.launch {
                 userPreferencesRepository.updateHighScoreIfBetter(QUIZ_ID, finalScore)
+                userPreferencesRepository.setQuizCompleted(QUIZ_ID)
             }
         } else {
             _uiState.update {

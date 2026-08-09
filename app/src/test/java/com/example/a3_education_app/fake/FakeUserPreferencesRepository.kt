@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.map
 class FakeUserPreferencesRepository : UserPreferencesRepository {
     private val scores = MutableStateFlow<Map<String, Int>>(emptyMap())
     private val darkTheme = MutableStateFlow(false)
+    private val lessonsCompleted = MutableStateFlow<Map<String, Boolean>>(emptyMap())
+    private val quizzesCompleted = MutableStateFlow<Map<String, Boolean>>(emptyMap())
 
     override fun highScoreFlow(quizId: String): Flow<Int> =
         scores.map { it[quizId] ?: 0 }
@@ -23,5 +25,19 @@ class FakeUserPreferencesRepository : UserPreferencesRepository {
 
     override suspend fun setDarkTheme(enabled: Boolean) {
         darkTheme.value = enabled
+    }
+
+    override fun isLessonCompletedFlow(lessonId: String): Flow<Boolean> =
+        lessonsCompleted.map { it[lessonId] ?: false }
+
+    override suspend fun setLessonCompleted(lessonId: String, completed: Boolean) {
+        lessonsCompleted.value = lessonsCompleted.value + (lessonId to completed)
+    }
+
+    override fun isQuizCompletedFlow(quizId: String): Flow<Boolean> =
+        quizzesCompleted.map { it[quizId] ?: false }
+
+    override suspend fun setQuizCompleted(quizId: String, completed: Boolean) {
+        quizzesCompleted.value = quizzesCompleted.value + (quizId to completed)
     }
 }

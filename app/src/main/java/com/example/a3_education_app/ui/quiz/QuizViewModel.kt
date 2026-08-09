@@ -52,6 +52,7 @@ class QuizViewModel(
             _uiState.update { it.copy(isGameOver = true) }
             viewModelScope.launch {
                 userPreferencesRepository.updateHighScoreIfBetter(planetId, finalScore)
+                userPreferencesRepository.setQuizCompleted(planetId)
             }
         } else {
             _uiState.update {

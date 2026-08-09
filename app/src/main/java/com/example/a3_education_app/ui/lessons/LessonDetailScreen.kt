@@ -11,13 +11,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a3_education_app.R
 import com.example.a3_education_app.data.LessonDataSource
 
@@ -25,9 +29,11 @@ import com.example.a3_education_app.data.LessonDataSource
 fun LessonDetailScreen(
     lessonId: String,
     onTakeQuizClicked: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: LessonDetailViewModel = viewModel(factory = LessonDetailViewModel.factory(lessonId))
 ) {
     val lesson = LessonDataSource.lessonFor(lessonId)
+    val isCompleted by viewModel.isCompleted.collectAsState()
 
     Column(
         modifier = modifier
@@ -78,6 +84,24 @@ fun LessonDetailScreen(
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.padding(top = 12.dp)
         )
+
+        if (isCompleted) {
+            Text(
+                text = stringResource(R.string.lesson_completed),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(top = 20.dp)
+            )
+        } else {
+            OutlinedButton(
+                onClick = viewModel::markComplete,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp)
+            ) {
+                Text(stringResource(R.string.mark_lesson_complete))
+            }
+        }
 
         Button(
             onClick = { onTakeQuizClicked(lesson.quizPlanetId) },

@@ -16,6 +16,10 @@ interface UserPreferencesRepository {
 
     fun darkThemeFlow(): Flow<Boolean>
     suspend fun setDarkTheme(enabled: Boolean)
+    fun isLessonCompletedFlow(lessonId: String): Flow<Boolean>
+    suspend fun setLessonCompleted(lessonId: String, completed: Boolean)
+    fun isQuizCompletedFlow(quizId: String): Flow<Boolean>
+    suspend fun setQuizCompleted(quizId: String, completed: Boolean = true)
 }
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
@@ -50,6 +54,30 @@ class UserPreferencesRepositoryImpl(
         val key = booleanPreferencesKey("dark_theme")
         dataStore.edit { prefs ->
             prefs[key] = enabled
+        }
+    }
+
+    override fun isLessonCompletedFlow(lessonId: String): Flow<Boolean> {
+        val key = booleanPreferencesKey("lesson_completed_$lessonId")
+        return dataStore.data.map { prefs -> prefs[key] ?: false }
+    }
+
+    override suspend fun setLessonCompleted(lessonId: String, completed: Boolean) {
+        val key = booleanPreferencesKey("lesson_completed_$lessonId")
+        dataStore.edit { prefs ->
+            prefs[key] = completed
+        }
+    }
+
+    override fun isQuizCompletedFlow(quizId: String): Flow<Boolean> {
+        val key = booleanPreferencesKey("quiz_completed_$quizId")
+        return dataStore.data.map { prefs -> prefs[key] ?: false }
+    }
+
+    override suspend fun setQuizCompleted(quizId: String, completed: Boolean) {
+        val key = booleanPreferencesKey("quiz_completed_$quizId")
+        dataStore.edit { prefs ->
+            prefs[key] = completed
         }
     }
 

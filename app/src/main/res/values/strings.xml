@@ -56,4 +56,11 @@
     <string name="no_favorites_hint">Open Exoplanets, pick one, and tap Add favorite.</string>
     <string name="quiz_list_header">Pick a quiz — beat your best score!</string>
     <string name="search_filters_header">Search and filters</string>
+    <string name="mark_lesson_complete">Mark complete</string>
+    <string name="lesson_completed">Completed</string>
+    <string name="lesson_not_completed">Not completed yet</string>
+    <string name="lessons_progress">Lessons completed: %1$d of %2$d</string>
+    <string name="quiz_completed">Completed</string>
+    <string name="quiz_not_completed">Not completed yet</string>
+    <string name="quizzes_progress">Quizzes completed: %1$d of %2$d</string>
 </resources>
