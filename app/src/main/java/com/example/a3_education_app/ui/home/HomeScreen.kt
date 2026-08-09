@@ -11,8 +11,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.Quiz
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.TravelExplore
 import androidx.compose.material3.CardDefaults
@@ -37,6 +39,8 @@ fun HomeScreen(
     onFavoritesClicked: () -> Unit,
     onLessonsClicked: () -> Unit,
     onQuizClicked: () -> Unit,
+    onStatisticsClicked: () -> Unit,
+    onSettingsClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -87,6 +91,18 @@ fun HomeScreen(
             icon = Icons.Filled.Quiz,
             onClick = onQuizClicked
         )
+        HomeMenuCard(
+            title = stringResource(R.string.statistics),
+            subtitle = stringResource(R.string.home_statistics_subtitle),
+            icon = Icons.Filled.BarChart,
+            onClick = onStatisticsClicked
+        )
+        HomeMenuCard(
+            title = stringResource(R.string.settings),
+            subtitle = stringResource(R.string.home_settings_subtitle),
+            icon = Icons.Filled.Settings,
+            onClick = onSettingsClicked
+        )
     }
 }
 
@@ -128,6 +144,6 @@ private fun HomeMenuCard(
 @Composable
 fun HomeScreenPreview() {
     A3EducationAppTheme(darkTheme = false) {
-        HomeScreen({}, {}, {}, {}, {})
+        HomeScreen({}, {}, {}, {}, {}, {}, {})
     }
 }

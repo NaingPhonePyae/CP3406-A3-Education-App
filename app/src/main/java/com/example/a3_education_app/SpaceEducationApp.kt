@@ -32,8 +32,10 @@ import com.example.a3_education_app.ui.lessons.LessonsScreen
 import com.example.a3_education_app.ui.quiz.ExoplanetQuizScreen
 import com.example.a3_education_app.ui.quiz.PlanetQuizListScreen
 import com.example.a3_education_app.ui.quiz.QuizScreen
+import com.example.a3_education_app.ui.settings.SettingsScreen
 import com.example.a3_education_app.ui.solar.SolarBodyDetailScreen
 import com.example.a3_education_app.ui.solar.SolarSystemScreen
+import com.example.a3_education_app.ui.statistics.StatisticsScreen
 
 enum class SpaceScreen(@param:StringRes val title: Int) {
     Home(R.string.home),
@@ -45,7 +47,9 @@ enum class SpaceScreen(@param:StringRes val title: Int) {
     LessonDetail(R.string.lessons),
     Quiz(R.string.quiz),
     ExoplanetQuiz(R.string.exoplanet_blitz),
-    Favorites(R.string.favorites)
+    Favorites(R.string.favorites),
+    Statistics(R.string.statistics),
+    Settings(R.string.settings)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -109,7 +113,9 @@ fun SpaceEducationApp(
                     onExoplanetsClicked = { navController.navigate(SpaceScreen.Exoplanets.name) },
                     onFavoritesClicked = { navController.navigate(SpaceScreen.Favorites.name) },
                     onLessonsClicked = { navController.navigate(SpaceScreen.Lessons.name) },
-                    onQuizClicked = { navController.navigate(SpaceScreen.Quiz.name) }
+                    onQuizClicked = { navController.navigate(SpaceScreen.Quiz.name) },
+                    onStatisticsClicked = { navController.navigate(SpaceScreen.Statistics.name) },
+                    onSettingsClicked = { navController.navigate(SpaceScreen.Settings.name) }
                 )
             }
             composable(SpaceScreen.SolarSystem.name) {
@@ -186,6 +192,12 @@ fun SpaceEducationApp(
             }
             composable(SpaceScreen.ExoplanetQuiz.name) {
                 ExoplanetQuizScreen()
+            }
+            composable(SpaceScreen.Statistics.name) {
+                StatisticsScreen()
+            }
+            composable(SpaceScreen.Settings.name) {
+                SettingsScreen()
             }
         }
     }

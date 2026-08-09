@@ -20,6 +20,8 @@ interface UserPreferencesRepository {
     suspend fun setLessonCompleted(lessonId: String, completed: Boolean)
     fun isQuizCompletedFlow(quizId: String): Flow<Boolean>
     suspend fun setQuizCompleted(quizId: String, completed: Boolean = true)
+    fun blitzQuestionCountFlow(): Flow<Int>
+    suspend fun setBlitzQuestionCount(count: Int)
 }
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
@@ -86,4 +88,14 @@ class UserPreferencesRepositoryImpl(
             return UserPreferencesRepositoryImpl(context.dataStore)
         }
     }
+
+    override fun blitzQuestionCountFlow(): Flow<Int> {
+        val key = intPreferencesKey("blitz_question_count")
+        return dataStore.data.map { prefs -> prefs[key] ?: 5 }
+    }
+    override suspend fun setBlitzQuestionCount(count: Int) {
+        val key = intPreferencesKey("blitz_question_count")
+        dataStore.edit { prefs -> prefs[key] = count }
+    }
+
 }

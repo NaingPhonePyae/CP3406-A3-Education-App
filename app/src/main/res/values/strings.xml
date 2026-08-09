@@ -63,4 +63,17 @@
     <string name="quiz_completed">Completed</string>
     <string name="quiz_not_completed">Not completed yet</string>
     <string name="quizzes_progress">Quizzes completed: %1$d of %2$d</string>
+    <string name="settings">Settings</string>
+    <string name="statistics">Statistics</string>
+    <string name="home_settings_subtitle">Theme and Blitz length</string>
+    <string name="home_statistics_subtitle">Your learning progress</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_dark_theme">Dark theme</string>
+    <string name="settings_blitz">Exoplanet Blitz</string>
+    <string name="settings_blitz_questions">Number of questions</string>
+    <string name="stats_lessons">Lessons completed: %1$d of %2$d</string>
+    <string name="stats_quizzes">Quizzes completed: %1$d of %2$d</string>
+    <string name="stats_favorites">Favorite exoplanets: %d</string>
+    <string name="stats_best_scores">Best quiz scores</string>
+    <string name="stats_score_line">%1$s — Best: %2$d</string>
 </resources>

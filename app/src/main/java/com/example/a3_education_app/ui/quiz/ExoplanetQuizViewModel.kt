@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -55,6 +56,10 @@ class ExoplanetQuizViewModel(
         viewModelScope.launch {
             loadState = ExoplanetQuizLoadState.Loading
             try {
+                val questionCount = userPreferencesRepository.blitzQuestionCountFlow()
+                    .first()
+                    .let { count -> if (count in listOf(5, 10, 15)) count else 5 }
+
                 val query =
                     "select+top+40+pl_name,hostname,disc_year,pl_bmasse,pl_rade,sy_dist+from+pscomppars+where+disc_year+is+not+null+and+hostname+is+not+null+order+by+disc_year+desc"
                 val bodies = exoplanetRepository.getExoplanets(query)
@@ -63,9 +68,9 @@ class ExoplanetQuizViewModel(
                                 it.disc_year != null &&
                                 !it.hostname.isNullOrBlank()
                     }
-                questions = buildQuestions(bodies).shuffled().take(5)
+                questions = buildQuestions(bodies).shuffled().take(questionCount)
                 _uiState.value = QuizUiState()
-                loadState = if (questions.size >= 5) {
+                loadState = if (questions.size >= questionCount) {
                     ExoplanetQuizLoadState.Ready
                 } else {
                     ExoplanetQuizLoadState.Error
