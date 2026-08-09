@@ -36,17 +36,34 @@ fun ExploreScreen(
     viewModel: ExploreViewModel = viewModel(factory = ExploreViewModel.Factory)
 ) {
     Column(modifier = modifier.fillMaxSize()) {
-        ExoplanetSearchFilters(
-            filterState = viewModel.filterState,
-            onSearchChange = viewModel::updateSearchText,
-            onMinYearChange = viewModel::updateMinYear,
-            onMaxYearChange = viewModel::updateMaxYear,
-            onMinRadiusChange = viewModel::updateMinRadius,
-            onMaxRadiusChange = viewModel::updateMaxRadius,
-            onResultLimitChange = viewModel::updateResultLimit,
-            onApply = viewModel::applyFilters,
-            onClear = viewModel::clearFilters
-        )
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(12.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.search_filters_header),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+
+                ExoplanetSearchFilters(
+                    filterState = viewModel.filterState,
+                    onSearchChange = viewModel::updateSearchText,
+                    onMinYearChange = viewModel::updateMinYear,
+                    onMaxYearChange = viewModel::updateMaxYear,
+                    onMinRadiusChange = viewModel::updateMinRadius,
+                    onMaxRadiusChange = viewModel::updateMaxRadius,
+                    onResultLimitChange = viewModel::updateResultLimit,
+                    onApply = viewModel::applyFilters,
+                    onClear = viewModel::clearFilters
+                )
+            }
+        }
 
         when (val state = viewModel.exploreUiState) {
             is ExploreUiState.Loading -> {
