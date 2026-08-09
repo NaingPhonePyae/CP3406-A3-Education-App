@@ -1,5 +1,6 @@
 package com.example.a3_education_app.data
 
+import android.content.Context
 import com.example.a3_education_app.network.ExoplanetApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -8,9 +9,10 @@ import retrofit2.Retrofit
 
 interface AppContainer {
     val exoplanetRepository: ExoplanetRepository
+    val userPreferencesRepository: UserPreferencesRepository
 }
 
-class DefaultAppContainer : AppContainer {
+class DefaultAppContainer(private val context: Context) : AppContainer {
     private val baseUrl = "https://exoplanetarchive.ipac.caltech.edu/"
 
     private val json = Json {
@@ -28,5 +30,9 @@ class DefaultAppContainer : AppContainer {
 
     override val exoplanetRepository: ExoplanetRepository by lazy {
         NetworkExoplanetRepository(retrofitService)
+    }
+
+    override val userPreferencesRepository: UserPreferencesRepository by lazy {
+        UserPreferencesRepositoryImpl.create(context)
     }
 }

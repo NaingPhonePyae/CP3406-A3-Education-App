@@ -16,8 +16,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a3_education_app.R
+import com.example.a3_education_app.SpaceEducationApplication
 
 @Composable
 fun QuizScreen(
@@ -27,8 +30,15 @@ fun QuizScreen(
         key = planetId,
         factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return QuizViewModel(planetId) as T
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>,
+                extras: CreationExtras
+            ): T {
+                val app = extras[APPLICATION_KEY] as SpaceEducationApplication
+                return QuizViewModel(
+                    planetId = planetId,
+                    userPreferencesRepository = app.container.userPreferencesRepository
+                ) as T
             }
         }
     )
@@ -36,12 +46,17 @@ fun QuizScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     if (uiState.isGameOver) {
+        val highScore by viewModel.highScore.collectAsState()
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .padding(16.dp),
             verticalArrangement = Arrangement.Center
         ) {
+            Text(
+                text = stringResource(R.string.high_score, highScore),
+                style = MaterialTheme.typography.titleMedium
+            )
             Text(
                 text = stringResource(R.string.score, uiState.score),
                 style = MaterialTheme.typography.headlineMedium

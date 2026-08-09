@@ -52,12 +52,17 @@ fun ExoplanetQuizScreen(
             val uiState by viewModel.uiState.collectAsState()
 
             if (uiState.isGameOver) {
+                val highScore by viewModel.highScore.collectAsState()
                 Column(
                     modifier = modifier
                         .fillMaxSize()
                         .padding(16.dp),
                     verticalArrangement = Arrangement.Center
                 ) {
+                    Text(
+                        text = stringResource(R.string.high_score, highScore),
+                        style = MaterialTheme.typography.titleMedium
+                    )
                     Text(
                         text = stringResource(R.string.score, uiState.score),
                         style = MaterialTheme.typography.headlineMedium

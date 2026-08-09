@@ -37,4 +37,5 @@
     <string name="planet_quiz">%1$s quiz</string>
     <string name="source_nasa">Source: %1$s</string>
     <string name="exoplanet_blitz">Exoplanet Blitz</string>
+    <string name="high_score">Best: %d</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.a3_education_app.ui.quiz
 
 import com.example.a3_education_app.MainDispatcherRule
 import com.example.a3_education_app.fake.FakeExoplanetRepository
+import com.example.a3_education_app.fake.FakeUserPreferencesRepository
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -12,12 +13,13 @@ class ExoplanetQuizViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val repository = FakeExoplanetRepository()
+    private val prefs = FakeUserPreferencesRepository()
 
     @Test
     fun loadQuiz_success_setsReadyAndFiveQuestions() {
         repository.shouldReturnError = false
 
-        val vm = ExoplanetQuizViewModel(repository)
+        val vm = ExoplanetQuizViewModel(repository, prefs)
 
         Assert.assertEquals(ExoplanetQuizLoadState.Ready, vm.loadState)
         Assert.assertEquals(5, vm.questionCount())
@@ -27,7 +29,7 @@ class ExoplanetQuizViewModelTest {
     fun loadQuiz_error_setsErrorState() {
         repository.shouldReturnError = true
 
-        val vm = ExoplanetQuizViewModel(repository)
+        val vm = ExoplanetQuizViewModel(repository, prefs)
 
         Assert.assertEquals(ExoplanetQuizLoadState.Error, vm.loadState)
         Assert.assertEquals(0, vm.questionCount())

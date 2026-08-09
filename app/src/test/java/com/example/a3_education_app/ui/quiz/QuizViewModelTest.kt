@@ -1,6 +1,7 @@
 package com.example.a3_education_app.ui.quiz
 
 import com.example.a3_education_app.data.QuizQuestionDataSource
+import com.example.a3_education_app.fake.FakeUserPreferencesRepository
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -8,10 +9,15 @@ import org.junit.Test
 class QuizViewModelTest {
 
     private lateinit var viewModel: QuizViewModel
+    private lateinit var prefs: FakeUserPreferencesRepository
 
     @Before
     fun setup() {
-        viewModel = QuizViewModel(planetId = "mars")
+        prefs = FakeUserPreferencesRepository()
+        viewModel = QuizViewModel(
+            planetId = "mars",
+            userPreferencesRepository = prefs
+        )
     }
 
     @Test
@@ -26,9 +32,7 @@ class QuizViewModelTest {
     @Test
     fun selectAnswer_correctAnswer_increasesScore() {
         val correctIndex = viewModel.currentQuestion().correctAnswerIndex
-
         viewModel.selectAnswer(correctIndex)
-
         Assert.assertEquals(1, viewModel.uiState.value.score)
         Assert.assertEquals(correctIndex, viewModel.uiState.value.selectedAnswerIndex)
     }
@@ -37,9 +41,7 @@ class QuizViewModelTest {
     fun selectAnswer_wrongAnswer_doesNotIncreaseScore() {
         val correctIndex = viewModel.currentQuestion().correctAnswerIndex
         val wrongIndex = if (correctIndex == 0) 1 else 0
-
         viewModel.selectAnswer(wrongIndex)
-
         Assert.assertEquals(0, viewModel.uiState.value.score)
         Assert.assertEquals(wrongIndex, viewModel.uiState.value.selectedAnswerIndex)
     }
@@ -49,7 +51,6 @@ class QuizViewModelTest {
         val correctIndex = viewModel.currentQuestion().correctAnswerIndex
         viewModel.selectAnswer(correctIndex)
         viewModel.selectAnswer(0)
-
         Assert.assertEquals(correctIndex, viewModel.uiState.value.selectedAnswerIndex)
         Assert.assertEquals(1, viewModel.uiState.value.score)
     }
@@ -58,7 +59,6 @@ class QuizViewModelTest {
     fun nextQuestion_advancesIndexAndClearsSelection() {
         viewModel.selectAnswer(viewModel.currentQuestion().correctAnswerIndex)
         viewModel.nextQuestion()
-
         val state = viewModel.uiState.value
         Assert.assertEquals(1, state.currentQuestionIndex)
         Assert.assertEquals(null, state.selectedAnswerIndex)
@@ -67,9 +67,10 @@ class QuizViewModelTest {
 
     @Test
     fun nextQuestion_onLastQuestion_setsGameOver() {
-        val lastIndex = QuizQuestionDataSource.questionsFor("mars").lastIndex
+        val questions = QuizQuestionDataSource.questionsFor("mars")
+        val lastIndex = questions.lastIndex
 
-        repeat(QuizQuestionDataSource.questionsFor("mars").size) { index ->
+        repeat(questions.size) { index ->
             Assert.assertEquals(index, viewModel.uiState.value.currentQuestionIndex)
             viewModel.selectAnswer(viewModel.currentQuestion().correctAnswerIndex)
             viewModel.nextQuestion()
@@ -77,16 +78,14 @@ class QuizViewModelTest {
 
         Assert.assertTrue(viewModel.uiState.value.isGameOver)
         Assert.assertEquals(lastIndex, viewModel.uiState.value.currentQuestionIndex)
-        Assert.assertEquals(QuizQuestionDataSource.questionsFor("mars").size, viewModel.uiState.value.score)
+        Assert.assertEquals(questions.size, viewModel.uiState.value.score)
     }
 
     @Test
     fun resetQuiz_restoresDefaultState() {
         viewModel.selectAnswer(viewModel.currentQuestion().correctAnswerIndex)
         viewModel.nextQuestion()
-
         viewModel.resetQuiz()
-
         val state = viewModel.uiState.value
         Assert.assertEquals(0, state.currentQuestionIndex)
         Assert.assertEquals(0, state.score)
