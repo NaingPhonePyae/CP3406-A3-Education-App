@@ -38,4 +38,8 @@
     <string name="source_nasa">Source: %1$s</string>
     <string name="exoplanet_blitz">Exoplanet Blitz</string>
     <string name="high_score">Best: %d</string>
+    <string name="favorites">Favorites</string>
+    <string name="add_favorite">Add favorite</string>
+    <string name="remove_favorite">Remove favorite</string>
+    <string name="no_favorites">No favorite exoplanets yet.</string>
 </resources>

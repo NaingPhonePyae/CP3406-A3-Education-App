@@ -20,6 +20,7 @@ class HomeScreenTest {
                 HomeScreen(
                     onSolarSystemClicked = {},
                     onExoplanetsClicked = {},
+                    onFavoritesClicked = {},
                     onLessonsClicked = {},
                     onQuizClicked = {}
                 )
@@ -28,6 +29,7 @@ class HomeScreenTest {
 
         composeTestRule.onNodeWithText("Solar System").assertIsDisplayed()
         composeTestRule.onNodeWithText("Exoplanets").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Favorites").assertIsDisplayed()
         composeTestRule.onNodeWithText("Lessons").assertIsDisplayed()
         composeTestRule.onNodeWithText("Quiz").assertIsDisplayed()
     }

@@ -20,6 +20,7 @@ import com.example.a3_education_app.ui.theme.A3EducationAppTheme
 fun HomeScreen(
     onSolarSystemClicked: () -> Unit,
     onExoplanetsClicked: () -> Unit,
+    onFavoritesClicked: () -> Unit,
     onLessonsClicked: () -> Unit,
     onQuizClicked: () -> Unit,
     modifier: Modifier = Modifier
@@ -48,6 +49,14 @@ fun HomeScreen(
             Text(stringResource(R.string.exoplanets))
         }
         Button(
+            onClick = onFavoritesClicked,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        ) {
+            Text(stringResource(R.string.favorites))
+        }
+        Button(
             onClick = onLessonsClicked,
             modifier = Modifier
                 .fillMaxWidth()
@@ -70,6 +79,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     A3EducationAppTheme {
-        HomeScreen({}, {}, {}, {})
+        HomeScreen({}, {}, {}, {}, {})
     }
 }

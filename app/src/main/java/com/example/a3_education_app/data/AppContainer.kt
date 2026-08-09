@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 interface AppContainer {
     val exoplanetRepository: ExoplanetRepository
     val userPreferencesRepository: UserPreferencesRepository
+    val favoritesRepository: FavoritesRepository
 }
 
 class DefaultAppContainer(private val context: Context) : AppContainer {
@@ -34,5 +35,12 @@ class DefaultAppContainer(private val context: Context) : AppContainer {
 
     override val userPreferencesRepository: UserPreferencesRepository by lazy {
         UserPreferencesRepositoryImpl.create(context)
+    }
+
+    private val database: SpaceEducationDatabase by lazy {
+        SpaceEducationDatabase.getDatabase(context)
+    }
+    override val favoritesRepository: FavoritesRepository by lazy {
+        OfflineFavoritesRepository(database.favoriteExoplanetDao())
     }
 }

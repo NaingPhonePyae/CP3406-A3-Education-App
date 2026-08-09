@@ -2,15 +2,21 @@ package com.example.a3_education_app.ui.explore
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a3_education_app.R
+import com.example.a3_education_app.data.FavoriteExoplanet
+import com.example.a3_education_app.network.Exoplanet
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
@@ -18,13 +24,21 @@ import java.nio.charset.StandardCharsets
 fun ExoplanetDetailScreen(
     encodedName: String,
     modifier: Modifier = Modifier,
-    viewModel: ExploreViewModel = viewModel(factory = ExploreViewModel.Factory)
+    exploreViewModel: ExploreViewModel = viewModel(factory = ExploreViewModel.Factory)
 ) {
     val name = URLDecoder.decode(encodedName, StandardCharsets.UTF_8.toString())
-    val state = viewModel.exploreUiState
-    val exoplanet = (state as? ExploreUiState.Success)
+    val detailViewModel: ExoplanetDetailViewModel = viewModel(
+        key = name,
+        factory = ExoplanetDetailViewModel.factory(name)
+    )
+
+    val exploreState = exploreViewModel.exploreUiState
+    val fromExplore = (exploreState as? ExploreUiState.Success)
         ?.exoplanets
         ?.firstOrNull { it.pl_name == name }
+
+    val favoriteFromDb by detailViewModel.favoriteFromDb.collectAsState()
+    val exoplanet = fromExplore ?: favoriteFromDb?.toExoplanet()
 
     if (exoplanet == null) {
         Text(
@@ -33,6 +47,8 @@ fun ExoplanetDetailScreen(
         )
         return
     }
+
+    val isFavorite by detailViewModel.isFavorite.collectAsState()
 
     Column(
         modifier = modifier
@@ -55,5 +71,28 @@ fun ExoplanetDetailScreen(
         exoplanet.sy_dist?.let {
             Text(stringResource(R.string.distance, it))
         }
+
+        Button(
+            onClick = { detailViewModel.toggleFavorite(exoplanet) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+        ) {
+            Text(
+                text = stringResource(
+                    if (isFavorite) R.string.remove_favorite else R.string.add_favorite
+                )
+            )
+        }
     }
 }
+
+private fun FavoriteExoplanet.toExoplanet(): Exoplanet =
+    Exoplanet(
+        pl_name = plName,
+        hostname = hostname,
+        disc_year = discYear,
+        pl_bmasse = plBmasse,
+        pl_rade = plRade,
+        sy_dist = syDist
+    )

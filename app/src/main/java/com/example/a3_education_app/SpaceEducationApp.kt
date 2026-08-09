@@ -24,6 +24,7 @@ import androidx.navigation.navArgument
 import com.example.a3_education_app.ui.explore.ExoplanetDetailScreen
 import com.example.a3_education_app.ui.quiz.ExoplanetQuizScreen
 import com.example.a3_education_app.ui.explore.ExploreScreen
+import com.example.a3_education_app.ui.favorites.FavoritesScreen
 import com.example.a3_education_app.ui.home.HomeScreen
 import com.example.a3_education_app.ui.lessons.LessonDetailScreen
 import com.example.a3_education_app.ui.lessons.LessonsScreen
@@ -41,7 +42,8 @@ enum class SpaceScreen(@param:StringRes val title: Int) {
     Lessons(R.string.lessons),
     LessonDetail(R.string.lessons),
     Quiz(R.string.quiz),
-    ExoplanetQuiz(R.string.exoplanet_blitz)
+    ExoplanetQuiz(R.string.exoplanet_blitz),
+    Favorites(R.string.favorites),
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -86,18 +88,11 @@ fun SpaceEducationApp() {
         ) {
             composable(SpaceScreen.Home.name) {
                 HomeScreen(
-                    onSolarSystemClicked = {
-                        navController.navigate(SpaceScreen.SolarSystem.name)
-                    },
-                    onExoplanetsClicked = {
-                        navController.navigate(SpaceScreen.Exoplanets.name)
-                    },
-                    onLessonsClicked = {
-                        navController.navigate(SpaceScreen.Lessons.name)
-                    },
-                    onQuizClicked = {
-                        navController.navigate(SpaceScreen.Quiz.name)
-                    }
+                    onSolarSystemClicked = { navController.navigate(SpaceScreen.SolarSystem.name) },
+                    onExoplanetsClicked = { navController.navigate(SpaceScreen.Exoplanets.name) },
+                    onFavoritesClicked = { navController.navigate(SpaceScreen.Favorites.name) },
+                    onLessonsClicked = { navController.navigate(SpaceScreen.Lessons.name) },
+                    onQuizClicked = { navController.navigate(SpaceScreen.Quiz.name) }
                 )
             }
             composable(SpaceScreen.SolarSystem.name) {
@@ -133,6 +128,13 @@ fun SpaceEducationApp() {
                 arguments = listOf(navArgument("name") { type = NavType.StringType })
             ) { entry ->
                 ExoplanetDetailScreen(encodedName = entry.arguments?.getString("name")!!)
+            }
+            composable(SpaceScreen.Favorites.name) {
+                FavoritesScreen(
+                    onFavoriteClicked = { encodedName ->
+                        navController.navigate("${SpaceScreen.ExoplanetDetail.name}/$encodedName")
+                    }
+                )
             }
             composable(SpaceScreen.Lessons.name) {
                 LessonsScreen(
