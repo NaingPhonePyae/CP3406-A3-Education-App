@@ -7,5 +7,8 @@ data class SolarBody(
     val moons: Int,
     val meanRadiusKm: Double,
     val gravity: Double,
-    val summary: String
+    val summary: String,
+    val facts: List<String>,
+    val imageRes: Int,
+    val sourceUrl: String
 )

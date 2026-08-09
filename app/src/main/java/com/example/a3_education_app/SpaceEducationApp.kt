@@ -26,6 +26,7 @@ import com.example.a3_education_app.ui.explore.ExploreScreen
 import com.example.a3_education_app.ui.home.HomeScreen
 import com.example.a3_education_app.ui.lessons.LessonDetailScreen
 import com.example.a3_education_app.ui.lessons.LessonsScreen
+import com.example.a3_education_app.ui.quiz.PlanetQuizListScreen
 import com.example.a3_education_app.ui.quiz.QuizScreen
 import com.example.a3_education_app.ui.solar.SolarBodyDetailScreen
 import com.example.a3_education_app.ui.solar.SolarSystemScreen
@@ -52,6 +53,7 @@ fun SpaceEducationApp() {
         route.startsWith(SpaceScreen.SolarDetail.name) -> SpaceScreen.SolarDetail
         route.startsWith(SpaceScreen.ExoplanetDetail.name) -> SpaceScreen.ExoplanetDetail
         route.startsWith(SpaceScreen.LessonDetail.name) -> SpaceScreen.LessonDetail
+        route.startsWith(SpaceScreen.Quiz.name) -> SpaceScreen.Quiz
         else -> SpaceScreen.valueOf(route.substringBefore("/"))
     }
 
@@ -106,7 +108,13 @@ fun SpaceEducationApp() {
                 route = "${SpaceScreen.SolarDetail.name}/{bodyId}",
                 arguments = listOf(navArgument("bodyId") { type = NavType.StringType })
             ) { entry ->
-                SolarBodyDetailScreen(bodyId = entry.arguments?.getString("bodyId")!!)
+                val bodyId = entry.arguments?.getString("bodyId")!!
+                SolarBodyDetailScreen(
+                    bodyId = bodyId,
+                    onTakeQuizClicked = { planetId ->
+                        navController.navigate("${SpaceScreen.Quiz.name}/$planetId")
+                    }
+                )
             }
             composable(SpaceScreen.Exoplanets.name) {
                 ExploreScreen(
@@ -137,7 +145,17 @@ fun SpaceEducationApp() {
                 LessonDetailScreen(lessonId = entry.arguments?.getInt("lessonId")!!)
             }
             composable(SpaceScreen.Quiz.name) {
-                QuizScreen()
+                PlanetQuizListScreen(
+                    onPlanetQuizClicked = { planetId ->
+                        navController.navigate("${SpaceScreen.Quiz.name}/$planetId")
+                    }
+                )
+            }
+            composable(
+                route = "${SpaceScreen.Quiz.name}/{planetId}",
+                arguments = listOf(navArgument("planetId") { type = NavType.StringType })
+            ) { entry ->
+                QuizScreen(planetId = entry.arguments?.getString("planetId")!!)
             }
         }
     }

@@ -32,4 +32,8 @@
     <string name="no_exoplanet_results">No exoplanets match your search/filters.</string>
     <string name="discovered">Discovered: %d</string>
     <string name="radius_earth">Radius: %1$s Earth radii</string>
+    <string name="interesting_facts">Interesting facts</string>
+    <string name="take_quiz">Take quiz</string>
+    <string name="planet_quiz">%1$s quiz</string>
+    <string name="source_nasa">Source: %1$s</string>
 </resources>

@@ -14,13 +14,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a3_education_app.R
 
 @Composable
 fun QuizScreen(
+    planetId: String,
     modifier: Modifier = Modifier,
-    viewModel: QuizViewModel = viewModel()
+    viewModel: QuizViewModel = viewModel(
+        key = planetId,
+        factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return QuizViewModel(planetId) as T
+            }
+        }
+    )
 ) {
     val uiState by viewModel.uiState.collectAsState()
 

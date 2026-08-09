@@ -11,7 +11,7 @@ class QuizViewModelTest {
 
     @Before
     fun setup() {
-        viewModel = QuizViewModel()
+        viewModel = QuizViewModel(planetId = "mars")
     }
 
     @Test
@@ -67,9 +67,9 @@ class QuizViewModelTest {
 
     @Test
     fun nextQuestion_onLastQuestion_setsGameOver() {
-        val lastIndex = QuizQuestionDataSource.questions.lastIndex
+        val lastIndex = QuizQuestionDataSource.questionsFor("mars").lastIndex
 
-        repeat(QuizQuestionDataSource.questions.size) { index ->
+        repeat(QuizQuestionDataSource.questionsFor("mars").size) { index ->
             Assert.assertEquals(index, viewModel.uiState.value.currentQuestionIndex)
             viewModel.selectAnswer(viewModel.currentQuestion().correctAnswerIndex)
             viewModel.nextQuestion()
@@ -77,7 +77,7 @@ class QuizViewModelTest {
 
         Assert.assertTrue(viewModel.uiState.value.isGameOver)
         Assert.assertEquals(lastIndex, viewModel.uiState.value.currentQuestionIndex)
-        Assert.assertEquals(QuizQuestionDataSource.questions.size, viewModel.uiState.value.score)
+        Assert.assertEquals(QuizQuestionDataSource.questionsFor("mars").size, viewModel.uiState.value.score)
     }
 
     @Test
@@ -97,7 +97,7 @@ class QuizViewModelTest {
     @Test
     fun questionCount_matchesDataSource() {
         Assert.assertEquals(
-            QuizQuestionDataSource.questions.size,
+            QuizQuestionDataSource.questionsFor("mars").size,
             viewModel.questionCount()
         )
     }

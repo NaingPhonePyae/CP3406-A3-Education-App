@@ -20,4 +20,20 @@ class SolarSystemDataSourceTest {
     fun bodies_containsEarth() {
         Assert.assertTrue(SolarSystemDataSource.bodies.any { it.id == "earth" })
     }
+
+    @Test
+    fun bodies_haveFactsAndImageUrl() {
+        SolarSystemDataSource.bodies.forEach { body ->
+            Assert.assertTrue(body.facts.isNotEmpty())
+            Assert.assertTrue(body.sourceUrl.contains("science.nasa.gov"))
+        }
+    }
+    @Test
+    fun everyPlanet_hasQuiz() {
+        SolarSystemDataSource.bodies.forEach { body ->
+            Assert.assertTrue(
+                QuizQuestionDataSource.quizzesByPlanetId.containsKey(body.id)
+            )
+        }
+    }
 }

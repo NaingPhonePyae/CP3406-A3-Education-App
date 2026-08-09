@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class QuizViewModel : ViewModel() {
+class QuizViewModel(planetId: String) : ViewModel() {
 
-    private val questions: List<QuizQuestion> = QuizQuestionDataSource.questions
+    private val questions: List<QuizQuestion> = QuizQuestionDataSource.questionsFor(planetId)
 
     private val _uiState = MutableStateFlow(QuizUiState())
     val uiState: StateFlow<QuizUiState> = _uiState.asStateFlow()
