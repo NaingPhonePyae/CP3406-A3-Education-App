@@ -53,7 +53,7 @@ SpaceEducationApplication
 |-------------------------------------------------|---------------------------------------------------------------|
 | `AppContainer.kt`                               | Provides repositories                                         |
 | `SolarSystemDataSource.kt`                      | Hardcoded planets + local drawables                           |
-| `LessonDataSource.kt`                           | Lessons related to celestial bodies                           |
+| `LessonDataSource.kt`                           | Lessons related to space                                      |
 | `QuizQuestionDataSource.kt`                     | Per-planet quiz questions                                     |
 | `ExoplanetRepository.kt`                        | Fetches exoplanet TAP results                                 |
 | `UserPreferencesRepository.kt`                  | High scores, dark theme, lesson/quiz completion, Blitz length |
@@ -93,7 +93,7 @@ Base URL: `https://exoplanetarchive.ipac.caltech.edu/`
 ### Solar system + lessons
 
 - Local planet data and images (`R.drawable.*`)
-- Lesson detail: facts, NASA source URL, Mark complete, Take quiz
+- Lesson detail: facts, NASA source URL, Mark complete, Take quiz only when quizPlanetId != null
 
 ---
 
